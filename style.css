@@ -1,0 +1,465 @@
+/* ==========================================================================
+   SAAD KHAN - PORTFOLIO STYLESHEET
+   Accurate Sk Nahid Hasan Creative Agency / Dribbble Palette & Style
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Signature Sk Nahid Hasan palette */
+  --bg-primary: #09080a;
+  --bg-secondary: #0f0e13;
+  --bg-card: rgba(18, 17, 24, 0.75);
+  --bg-card-hover: rgba(28, 26, 38, 0.9);
+
+  /* Fiery orange accents */
+  --accent-orange: #f95720;
+  --accent-orange-hover: #ff6b2b;
+  --accent-red-orange: #ed1a09;
+  --accent-glow: rgba(249, 87, 32, 0.35);
+
+  --text-primary: #ffffff;
+  --text-secondary: #ededee;
+  --text-muted: #9a9aa6;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(249, 87, 32, 0.45);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  overflow-x: hidden;
+}
+
+/* Fix font rendering & prevent character clipping */
+body {
+  font-family: var(--font-main);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings with Space Grotesk & generous line heights to prevent any clipping */
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.25 !important;
+  word-break: break-word;
+}
+
+/* Fix for gradient text clipping on descenders/ascenders (g, j, p, q, y) */
+.gradient-text-orange {
+  background: linear-gradient(135deg, #ff7a3d 0%, #f95720 50%, #ed1a09 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  line-height: 1.25;
+  padding-bottom: 0.12em;
+  padding-top: 0.05em;
+}
+
+.gradient-text-silver {
+  background: linear-gradient(180deg, #ffffff 30%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  line-height: 1.25;
+  padding-bottom: 0.12em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09080a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1e29;
+  border-radius: 9999px;
+  border: 2px solid #09080a;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-orange);
+}
+
+/* Background grid pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(249, 87, 32, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(249, 87, 32, 0.18);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Radar pulse animation */
+.radar-ping {
+  animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes radar-ping {
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Infinite Tech Marquee */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Floating animation */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float-slow 4.5s ease-in-out infinite;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #f95720 0%, #ed1a09 100%);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 25px -2px rgba(249, 87, 32, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px -2px rgba(249, 87, 32, 0.7);
+  background: linear-gradient(135deg, #ff6b2b 0%, #f95720 100%);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: all 0.6s ease;
+}
+
+.btn-primary:hover::after {
+  left: 120%;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ededee;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Active filter button */
+.filter-btn.active {
+  background: #f95720 !important;
+  color: #ffffff !important;
+  border-color: #f95720 !important;
+  box-shadow: 0 4px 18px -3px rgba(249, 87, 32, 0.5);
+}
+
+/* Modal styling */
+.modal-backdrop {
+  background: rgba(5, 4, 7, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.modal-backdrop.hidden,
+#projectModal.hidden,
+#fullPageModal.hidden,
+#demoPreviewModal.hidden {
+  display: none !important;
+}
+
+.modal-backdrop.active,
+#projectModal.active,
+#fullPageModal.active,
+#demoPreviewModal.active {
+  display: flex !important;
+}
+
+/* ==========================================================================
+   INTERACTIVE MOUSE HOVER ANIMATION & PARTICLE FX (FROM SHOWCASE)
+   ========================================================================== */
+
+/* Background Canvas covering entire viewport */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 35;
+}
+
+/* Custom Cursor Ring & Dot */
+#cursor-follower {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(249, 87, 32, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              height 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              border-color 0.2s, 
+              background-color 0.2s;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  box-shadow: 0 0 15px rgba(249, 87, 32, 0.35);
+}
+
+#cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #ff7a3d;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  box-shadow: 0 0 12px #ff7a3d, 0 0 20px #f95720;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #cursor-follower, #cursor-dot {
+    display: none !important;
+  }
+}
+
+/* Glowing Border Hover Card effect */
+.glow-card, .glass-card {
+  position: relative;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.glow-card::before, .glass-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(249, 87, 32, 0.75), rgba(56, 189, 248, 0.35), transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.glow-card:hover::before, .glass-card:hover::before {
+  opacity: 1;
+}
+
+/* Radial Spotlight layer inside cards */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(450px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(249, 87, 32, 0.12), transparent 75%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.glow-card:hover .spotlight, .glass-card:hover .spotlight {
+  opacity: 1;
+}
+
+/* 3D Tilt Card */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Ripple Button */
+.ripple-btn, .btn-primary, .btn-secondary {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-span {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: rippleEffect 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE ENHANCEMENTS & ZERO-OVERFLOW PROTECTION
+   ========================================================================== */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100%;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent flex & grid child overflow issues on small devices */
+.glass-card, .project-item, .grid > div {
+  min-width: 0;
+}
+
+/* iOS Safari auto-zoom prevention on form inputs */
+@media screen and (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ==========================================================================
+   SOCIAL ICONS STYLING (Customizable Links by User)
+   ========================================================================== */
+.social-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a1a1aa;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.social-icon-btn:hover {
+  background: rgba(249, 87, 32, 0.15);
+  border-color: rgba(249, 87, 32, 0.5);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -4px rgba(249, 87, 32, 0.3);
+}
+
+.social-icon-btn.whatsapp:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #34d399;
+  box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.3);
+}
+
+.social-icon-btn.linkedin:hover {
+  background: rgba(14, 165, 233, 0.15);
+  border-color: rgba(14, 165, 233, 0.5);
+  color: #38bdf8;
+  box-shadow: 0 8px 20px -4px rgba(14, 165, 233, 0.3);
+}
+
+.social-icon-btn.instagram:hover {
+  background: rgba(236, 72, 153, 0.15);
+  border-color: rgba(236, 72, 153, 0.5);
+  color: #f472b6;
+  box-shadow: 0 8px 20px -4px rgba(236, 72, 153, 0.3);
+}
+
+.social-icon-btn.github:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  box-shadow: 0 8px 20px -4px rgba(255, 255, 255, 0.2);
+}
+
+.social-icon-btn.facebook:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+  box-shadow: 0 8px 20px -4px rgba(59, 130, 246, 0.3);
+}
+
+.social-icon-btn.twitter:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  box-shadow: 0 8px 20px -4px rgba(255, 255, 255, 0.2);
+}
+

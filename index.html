@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saad Khan — Frontend & WordPress Developer | Portfolio</title>
+  <meta name="description" content="Portfolio of Saad Khan, Karachi-based Frontend and WordPress Developer specializing in modern HTML5, CSS3, JavaScript, WooCommerce, and high-performance web applications.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23f95720'/><text x='50%' y='60%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='50' font-weight='900' fill='white'>SK</text></svg>">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#f95720',
+              orangeHover: '#ff6b2b',
+              redOrange: '#ed1a09',
+              dark: '#09080a',
+              darker: '#060507',
+              card: '#121118',
+              cardhover: '#1c1a26',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderhover: 'rgba(249, 87, 32, 0.45)'
+            }
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'Plus Jakarta Sans', 'sans-serif'],
+            body: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#09080a] text-[#ededee] antialiased selection:bg-[#f95720] selection:text-white relative min-h-screen">
+
+  <!-- Foreground Particle Trail Canvas (Interactive Mouse FX) -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-follower"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scrollProgressBar" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#ff7a3d] via-[#f95720] to-[#ed1a09] z-50 transition-all duration-150" style="width: 0%"></div>
+
+  <!-- Background Ambient Glows -->
+  <div class="fixed top-0 left-1/3 -translate-x-1/2 w-[650px] h-[650px] bg-[#f95720]/12 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+  <div class="fixed bottom-1/3 right-10 w-[550px] h-[550px] bg-[#ed1a09]/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+  <div class="fixed inset-0 bg-grid-pattern opacity-30 pointer-events-none -z-10"></div>
+
+  <!-- =====================================================================
+       1. NAVIGATION BAR (100% Clickable & Responsive)
+  ===================================================================== -->
+  <header class="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 pt-4 pb-2 transition-all duration-300">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-5 py-3 rounded-full bg-[#0d0c12]/85 backdrop-blur-xl border border-white/10 shadow-2xl transition-all" id="navbar">
+      
+      <!-- Logo with Saad's Avatar -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-full overflow-hidden border-2 border-[#f95720] shadow-lg shadow-orange-500/25 group-hover:scale-105 transition-transform shrink-0">
+          <img src="assets/images/saad-portrait.png" alt="Saad Khan" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-white text-base tracking-tight font-heading leading-tight">Saad Khan</span>
+          <span class="text-[10px] text-[#9a9aa6] font-mono tracking-wider">DEV.PORTFOLIO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links (Spacious and responsive for large screens) -->
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-7">
+        <a href="#hero" class="nav-link text-sm font-medium text-white transition-colors hover:text-[#f95720]">Home</a>
+        <a href="#about" class="nav-link text-sm font-medium text-[#9a9aa6] transition-colors hover:text-[#f95720]">About</a>
+        <a href="#services" class="nav-link text-sm font-medium text-[#9a9aa6] transition-colors hover:text-[#f95720]">Services</a>
+        <a href="projects.html" class="nav-link text-sm font-medium text-[#9a9aa6] transition-colors hover:text-[#f95720] flex items-center gap-1">
+          <span>Projects</span>
+          <span class="px-1.5 py-0.2 bg-[#f95720]/20 text-[#f95720] rounded text-[10px] font-mono font-bold">New</span>
+        </a>
+        <a href="#skills" class="nav-link text-sm font-medium text-[#9a9aa6] transition-colors hover:text-[#f95720]">Skills</a>
+        <a href="#education" class="nav-link text-sm font-medium text-[#9a9aa6] transition-colors hover:text-[#f95720]">Education</a>
+        <a href="#contact" class="nav-link text-sm font-medium text-[#9a9aa6] transition-colors hover:text-[#f95720]">Contact</a>
+      </nav>
+
+      <!-- Right CTAs (Both 100% Clickable & Responsive) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- "Available for Work" (Visible on sm+ screens to preserve mobile header space) -->
+        <button id="availableBadgeBtn" type="button" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 hover:scale-105 transition-all cursor-pointer shadow-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="radar-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span>Available for Work</span>
+        </button>
+
+        <!-- "Let's Talk" (Guaranteed 100% Clickable WhatsApp Opener) -->
+        <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." id="letsTalkNavBtn" target="_blank" rel="noopener noreferrer" class="btn-primary ripple-btn text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-1.5 shadow-lg shrink-0 cursor-pointer">
+          <span>Let's Talk</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 pointer-events-none"></i>
+        </a>
+
+        <!-- Mobile & Tablet Hamburger Button -->
+        <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="lg:hidden p-2 text-gray-300 hover:text-white focus:outline-none">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile & Tablet Slideover Navigation (Scrollable & Complete with Social Links) -->
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-[#09080a]/95 backdrop-blur-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between p-5 sm:p-7 lg:hidden overflow-y-auto max-h-screen">
+    <div>
+      <div class="flex items-center justify-between pb-5 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <img src="assets/images/saad-portrait.png" alt="Saad Khan" class="w-9 h-9 rounded-full object-cover border border-[#f95720]">
+          <div>
+            <span class="font-bold text-white text-base sm:text-lg font-heading block leading-tight">Saad Khan</span>
+            <span class="text-[10px] text-[#f95720] font-mono">Frontend & WordPress Dev</span>
+          </div>
+        </div>
+        <button id="mobileMenuCloseBtn" aria-label="Close Navigation Menu" class="p-2 text-gray-400 hover:text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4 mt-6">
+        <a href="#hero" class="mobile-nav-link text-lg font-medium text-white hover:text-[#f95720] py-1">Home</a>
+        <a href="#about" class="mobile-nav-link text-lg font-medium text-gray-300 hover:text-[#f95720] py-1">About Me</a>
+        <a href="#services" class="mobile-nav-link text-lg font-medium text-gray-300 hover:text-[#f95720] py-1">Services</a>
+        <a href="projects.html" class="mobile-nav-link text-lg font-medium text-[#f95720] hover:text-white flex items-center justify-between py-1">
+          <span>Projects & Works</span>
+          <span class="px-2 py-0.5 bg-[#f95720] text-white text-xs rounded-full">New Page</span>
+        </a>
+        <a href="#skills" class="mobile-nav-link text-lg font-medium text-gray-300 hover:text-[#f95720] py-1">Skills & Tools</a>
+        <a href="#education" class="mobile-nav-link text-lg font-medium text-gray-300 hover:text-[#f95720] py-1">Education & Mentor</a>
+        <a href="#contact" class="mobile-nav-link text-lg font-medium text-gray-300 hover:text-[#f95720] py-1">Contact</a>
+      </div>
+    </div>
+
+    <div class="space-y-4 pt-6 mt-6 border-t border-white/10">
+      <div class="flex items-center gap-2 text-xs text-emerald-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Currently accepting new web projects
+      </div>
+
+      <!-- WhatsApp CTA Button -->
+      <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20want%20to%20discuss%20a%20project%20with%20you." id="letsTalkMobileBtn" target="_blank" class="w-full btn-primary py-3 rounded-xl flex items-center justify-center gap-2 font-medium text-sm shadow-lg">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        Chat on WhatsApp
+      </a>
+
+      <!-- Social Media Icons in Mobile Drawer (Add your own links here) -->
+      <div class="pt-2">
+        <p class="text-[10px] font-mono text-[#9a9aa6] uppercase tracking-wider mb-2.5">Connect With Me On Social:</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- 1. GitHub -->
+           <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn github" title="GitHub" aria-label="GitHub Profile">
+            <i data-lucide="github" class="w-4 h-4"></i>
+           </a>
+          <!-- 2. LinkedIn -->
+           <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
+            <i data-lucide="linkedin" class="w-4 h-4"></i>
+          </a> 
+          <!-- 3. WhatsApp Direct -->
+          <a href="https://wa.me/923437323469" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp" title="WhatsApp" aria-label="WhatsApp Direct">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </a>
+          <!-- 4. Instagram -->
+          <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn instagram" title="Instagram" aria-label="Instagram Profile">
+            <i data-lucide="instagram" class="w-4 h-4"></i>
+          </a>
+          <!-- 5. Facebook -->
+          <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn facebook" title="Facebook" aria-label="Facebook Profile">
+            <i data-lucide="facebook" class="w-4 h-4"></i>
+          </a>
+          <!-- 6. Twitter / X -->
+          <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn twitter" title="Twitter / X" aria-label="Twitter / X Profile">
+            <i data-lucide="twitter" class="w-4 h-4"></i>
+          </a>
+          <!-- 7. Email -->
+          <a href="mailto:saadraza132009@gmail.com" class="social-icon-btn" title="Send Email" aria-label="Send Email">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       2. HERO SECTION
+  ===================================================================== -->
+  <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Top Pill Badge -->
+      <div class="flex items-center justify-center md:justify-start mb-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-xs font-medium text-gray-300 border border-white/10 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#f95720]"></span>
+          <span>Frontend & WordPress Developer</span>
+          <span class="text-gray-500">•</span>
+          <span class="text-gray-400 flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-3 h-3 text-[#f95720]"></i> Karachi, PK
+          </span>
+        </div>
+      </div>
+
+      <!-- Main Grid: Left Pitch / Right Real Portrait Showcase -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-7 text-center md:text-left space-y-6">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white font-heading leading-tight pb-1">
+            Turning Designs Into <br class="hidden sm:inline">
+            <span class="gradient-text-orange">High-Performance</span> <br>
+            Web Experiences.
+          </h1>
+
+          <p class="text-[#9a9aa6] text-base sm:text-lg max-w-xl mx-auto md:mx-0 leading-relaxed font-normal">
+            Hello, I’m <span class="text-white font-semibold">Saad Khan</span>. Trained at <strong class="text-white">The Hunar Foundation (ARWE Trust)</strong> under <strong class="text-white">Sir Talha</strong>. I engineer pixel-perfect frontend interfaces and high-converting online stores with clean code, ultra-fast loading speeds, and 100% responsive layouts.
+          </p>
+
+          <!-- Buttons Row -->
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
+            <a href="projects.html" class="btn-primary px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2 group">
+              <span>Explore My Work</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <!-- WhatsApp Chat Button (Number Hidden) -->
+            <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20want%20to%20discuss%20a%20project%20with%20you." target="_blank" class="btn-secondary px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2">
+              <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i>
+              <span>Chat on WhatsApp</span>
+            </a>
+
+            <button id="copyEmailBtn" class="glass-pill px-4 py-3.5 rounded-xl font-medium text-xs text-gray-300 hover:text-white hover:border-white/20 transition-all flex items-center gap-2 relative" title="Copy email address">
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-[#f95720]"></i>
+              <span>Copy Email</span>
+              <div id="copyTooltip" class="absolute -top-8 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-[#f95720] text-white text-[11px] rounded font-semibold opacity-0 pointer-events-none transition-opacity">Copied!</div>
+            </button>
+          </div>
+
+          <!-- Trust bullets -->
+          <div class="pt-4 flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 text-xs text-[#9a9aa6] font-mono">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+              <span>100% Bug-Free Guarantee</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="zap" class="w-4 h-4 text-[#f95720]"></i>
+              <span>Fast Page Speed</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+              <span>Hunar Foundation Certified</span>
+            </div>
+          </div>
+
+          <!-- Social Connect Strip in Hero (User can paste links here) -->
+          <div class="pt-3 border-t border-white/5 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+            <span class="text-xs font-mono text-[#9a9aa6] uppercase tracking-wider mr-1">Social Profiles:</span>
+            <!-- 1. GitHub -->
+            <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn github" title="GitHub" aria-label="GitHub Profile">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+            <!-- 2. LinkedIn -->
+            <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+            <!-- 3. WhatsApp Direct -->
+            <a href="https://wa.me/923437323469" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp" title="WhatsApp" aria-label="WhatsApp Direct">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </a>
+            <!-- 4. Instagram -->
+            <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn instagram" title="Instagram" aria-label="Instagram Profile">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <!-- 5. Facebook -->
+            <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn facebook" title="Facebook" aria-label="Facebook Profile">
+              <i data-lucide="facebook" class="w-4 h-4"></i>
+            </a>
+            <!-- 6. Twitter / X -->
+            <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn twitter" title="Twitter / X" aria-label="Twitter / X Profile">
+              <i data-lucide="twitter" class="w-4 h-4"></i>
+            </a>
+            <!-- 7. Email Direct -->
+            <a href="mailto:saadraza132009@gmail.com" class="social-icon-btn" title="Send Email" aria-label="Send Email">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Real Portrait Showcase in Glassmorphic Frame -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          
+          <div class="relative w-full max-w-sm sm:max-w-md">
+            
+            <div class="absolute -inset-1.5 bg-gradient-to-tr from-[#f95720] via-[#ed1a09] to-orange-500 rounded-3xl blur-xl opacity-35"></div>
+
+            <div class="relative glass-card rounded-3xl overflow-hidden border border-white/15 p-3.5 shadow-2xl bg-[#121118]/85">
+              
+              <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-[#181622]">
+                <img src="assets/images/saad-portrait.png" alt="Saad Khan - Frontend and WordPress Developer" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700">
+                
+                <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#09080a] via-[#09080a]/60 to-transparent"></div>
+
+                <div class="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-between">
+                  <div>
+                    <h3 class="text-sm font-bold text-white font-heading">Saad Khan</h3>
+                    <p class="text-[11px] text-[#f95720] font-medium">Frontend & WordPress Dev</p>
+                  </div>
+                  <div class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono border border-emerald-500/30 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Verified Dev
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick tech stack strip under portrait -->
+              <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+                <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5">
+                  <p class="text-[10px] text-[#9a9aa6] font-mono">CORE</p>
+                  <p class="text-xs font-bold text-white">HTML / CSS / JS</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5">
+                  <p class="text-[10px] text-[#9a9aa6] font-mono">CMS</p>
+                  <p class="text-xs font-bold text-white">WordPress</p>
+                </div>
+                <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5">
+                  <p class="text-[10px] text-[#9a9aa6] font-mono">STORE</p>
+                  <p class="text-xs font-bold text-white">WooCommerce</p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Floating Pill Badge -->
+            <div class="absolute -bottom-4 -left-4 hidden sm:flex items-center gap-2.5 px-4 py-2.5 rounded-xl glass-card border border-white/15 shadow-2xl animate-float">
+              <div class="w-8 h-8 rounded-lg bg-[#f95720]/20 text-[#f95720] flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="text-[10px] text-[#9a9aa6] font-mono">MENTORSHIP</p>
+                <p class="text-xs font-bold text-white">Trained by Sir Talha</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       3. METRICS / STATS COUNTER STRIP
+  ===================================================================== -->
+  <section id="statsSection" class="py-12 border-y border-white/5 bg-[#0d0c12]/70 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        
+        <div class="space-y-1">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white font-heading stat-counter" data-target="6" data-suffix=" Months">0</div>
+          <p class="text-xs sm:text-sm text-[#9a9aa6] font-medium">Dedicated Experience</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-3xl sm:text-4xl font-extrabold text-[#f95720] font-heading stat-counter" data-target="15" data-suffix="+">0</div>
+          <p class="text-xs sm:text-sm text-[#9a9aa6] font-medium">Projects Built</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white font-heading stat-counter" data-target="100" data-suffix="%">0</div>
+          <p class="text-xs sm:text-sm text-[#9a9aa6] font-medium">Responsive & Bug-Free</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 font-heading">24/7</div>
+          <p class="text-xs sm:text-sm text-[#9a9aa6] font-medium">Fast Turnaround & Support</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       4. INFINITE TECH MARQUEE
+  ===================================================================== -->
+  <div class="py-6 overflow-hidden bg-black/50 border-b border-white/5 relative">
+    <div class="marquee-track flex items-center gap-10">
+      
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-[#f95720]"></span> HTML5 Semantic Web
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span> CSS3 & Modern Flexbox/Grid
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-yellow-400"></span> JavaScript (ES6+)
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Tailwind CSS
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-blue-400"></span> WordPress CMS
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-purple-500"></span> WooCommerce Stores
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> REST API Integration
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-[#f95720]"></span> Responsive UI/UX
+      </span>
+
+      <!-- Duplicate for marquee -->
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-[#f95720]"></span> HTML5 Semantic Web
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span> CSS3 & Modern Flexbox/Grid
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-yellow-400"></span> JavaScript (ES6+)
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Tailwind CSS
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-blue-400"></span> WordPress CMS
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-purple-500"></span> WooCommerce Stores
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> REST API Integration
+      </span>
+      <span class="flex items-center gap-2 text-sm font-semibold text-[#9a9aa6] font-mono uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-[#f95720]"></span> Responsive UI/UX
+      </span>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       5. ABOUT SECTION
+  ===================================================================== -->
+  <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Visual -->
+        <div class="lg:col-span-5 relative">
+          <div class="glass-card rounded-3xl p-5 relative overflow-hidden group">
+            
+            <div class="w-full aspect-[4/5] rounded-2xl overflow-hidden relative border border-white/10">
+              <img src="assets/images/saad-portrait.png" alt="Saad Khan portrait" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700">
+              
+              <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#09080a] to-transparent"></div>
+
+              <div class="absolute bottom-4 left-4 right-4">
+                <h3 class="text-lg font-bold text-white font-heading">Saad Khan</h3>
+                <p class="text-xs text-[#f95720] font-mono">Karachi, Pakistan</p>
+                <div class="flex flex-wrap gap-1.5 mt-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/10 backdrop-blur-md text-white">Frontend Dev</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/10 backdrop-blur-md text-white">WordPress</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/10 backdrop-blur-md text-white">E-Commerce</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating quick contact strip (Number Hidden) -->
+            <div class="mt-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between">
+              <div>
+                <p class="text-[11px] text-[#9a9aa6] font-mono">DIRECT INQUIRY</p>
+                <p class="text-xs font-semibold text-white">Available on WhatsApp</p>
+              </div>
+              <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20want%20to%20discuss%20a%20project." target="_blank" class="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition-colors" title="Chat on WhatsApp">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Content: The Story -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-[#f95720]">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            <span>About The Developer</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading leading-tight pb-1">
+            Passionate About Creating Web Experiences That Are Fast, Functional & Visually Engaging.
+          </h2>
+
+          <div class="space-y-4 text-[#9a9aa6] text-sm sm:text-base leading-relaxed">
+            <p>
+              I am a dedicated <strong class="text-white">Frontend and WordPress Developer</strong> based in Karachi with <strong class="text-white">6 months of intensive practical experience</strong>. I developed my core web foundation at <strong class="text-white">The Hunar Foundation (ARWE Trust)</strong> under the mentorship of <strong class="text-white">Sir Talha</strong>.
+            </p>
+            <p>
+              My philosophy is simple: write clean, maintainable code, test thoroughly for zero bugs across all screen sizes, and prioritize user experience. Whether it's crafting complete multi-page e-commerce stores (like my project Kofa) or interactive web portals (like Sunrise Shawarma), I deliver reliable results on time.
+            </p>
+          </div>
+
+          <!-- Feature Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl glass-card border border-white/5 space-y-2">
+              <div class="w-8 h-8 rounded-lg bg-[#f95720]/15 text-[#f95720] flex items-center justify-center">
+                <i data-lucide="layout" class="w-4 h-4"></i>
+              </div>
+              <h4 class="font-bold text-white text-sm font-heading">Pixel-Perfect UI</h4>
+              <p class="text-xs text-[#9a9aa6]">Faithful translation of designs into smooth, responsive HTML/CSS/Tailwind code.</p>
+            </div>
+
+            <div class="p-4 rounded-xl glass-card border border-white/5 space-y-2">
+              <div class="w-8 h-8 rounded-lg bg-blue-500/15 text-blue-400 flex items-center justify-center">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              </div>
+              <h4 class="font-bold text-white text-sm font-heading">WordPress & E-Commerce</h4>
+              <p class="text-xs text-[#9a9aa6]">Full WooCommerce store setups, product management, and customized theme sections.</p>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="pt-4 flex flex-wrap items-center gap-4">
+            <a href="projects.html" class="btn-primary px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-2">
+              <span>View Full Projects Page</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <!-- WhatsApp Direct Button (Number Hidden) -->
+            <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20am%20interested%20in%20working%20with%20you." target="_blank" class="btn-secondary px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-2">
+              <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i>
+              <span>Connect on WhatsApp</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. SERVICES SECTION
+  ===================================================================== -->
+  <section id="services" class="py-24 px-4 sm:px-6 lg:px-8 bg-[#0b0a0e] border-t border-white/5 relative">
+    <div class="max-w-6xl mx-auto space-y-16">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-[#f95720]">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          <span>My Expertise</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading pb-1">
+          Services Tailored For Your Digital Success
+        </h2>
+        <p class="text-[#9a9aa6] text-sm sm:text-base">
+          From custom frontends to powerful WordPress stores and API integrations, here is how I help clients bring their vision to life.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Service 1: Frontend Development -->
+        <div class="glass-card rounded-3xl p-8 space-y-5 border border-white/10 relative group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#f95720]/20 to-transparent border border-[#f95720]/30 flex items-center justify-center text-[#f95720] group-hover:scale-110 transition-transform">
+            <i data-lucide="code-2" class="w-7 h-7"></i>
+          </div>
+
+          <h3 class="text-xl font-bold text-white font-heading">Frontend Web Development</h3>
+          <p class="text-[#9a9aa6] text-sm leading-relaxed">
+            Crafting lightning-fast, responsive web interfaces using semantic HTML5, modern CSS3, Tailwind CSS, and clean JavaScript (ES6+).
+          </p>
+
+          <ul class="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-white/5">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-[#f95720]"></i>
+              <span>Dribbble to pixel-perfect code</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-[#f95720]"></i>
+              <span>Mobile-first & tablet responsive layouts</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-[#f95720]"></i>
+              <span>Cross-browser bug free testing</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Service 2: WordPress & E-Commerce -->
+        <div class="glass-card rounded-3xl p-8 space-y-5 border border-white/10 relative group bg-gradient-to-b from-[#161522]/70 to-[#100f1a]/70">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-transparent border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+            <i data-lucide="shopping-cart" class="w-7 h-7"></i>
+          </div>
+
+          <h3 class="text-xl font-bold text-white font-heading">WordPress & E-Commerce</h3>
+          <p class="text-[#9a9aa6] text-sm leading-relaxed">
+            Complete WordPress CMS solutions and high-converting WooCommerce storefronts with streamlined checkout and product management.
+          </p>
+
+          <ul class="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-white/5">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
+              <span>Custom WooCommerce store setup</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
+              <span>Theme customization & landing pages</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
+              <span>Payment gateway & shipping setup</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Service 3: API & Database Design -->
+        <div class="glass-card rounded-3xl p-8 space-y-5 border border-white/10 relative group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-transparent border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <i data-lucide="database" class="w-7 h-7"></i>
+          </div>
+
+          <h3 class="text-xl font-bold text-white font-heading">API & Database Design</h3>
+          <p class="text-[#9a9aa6] text-sm leading-relaxed">
+            Connecting frontends to REST APIs, handling data fetching, database schema setups, and ensuring seamless client-server communication.
+          </p>
+
+          <ul class="space-y-2.5 text-xs text-gray-300 pt-2 border-t border-white/5">
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+              <span>RESTful API integration & AJAX data flow</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+              <span>Database structuring & CRUD logic</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+              <span>Form validations & secure submissions</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. FEATURED REAL PROJECTS SECTION (With Link to projects.html)
+  ===================================================================== -->
+  <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-6xl mx-auto space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-[#f95720]">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            <span>Featured Case Studies</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading pb-1">
+            Real Works & Selected Projects
+          </h2>
+          <p class="text-[#9a9aa6] text-sm max-w-lg">
+            Featured applications crafted by Saad Khan, demonstrating real e-commerce architecture, interactive menus, and REST APIs.
+          </p>
+        </div>
+
+        <!-- Direct link to dedicated projects.html page -->
+        <a href="projects.html" class="btn-primary px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2 self-start md:self-end shadow-xl">
+          <span>View All Projects Page (6+)</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Top 4 Flagship Projects (Saad Khan's Real Local Projects) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Project 1: Kofa Luxury E-Commerce Store -->
+        <div class="project-item group">
+          <div class="glass-card rounded-3xl overflow-hidden border border-white/10 flex flex-col h-full bg-[#121118]/80">
+            
+            <div class="relative w-full aspect-[16/10] overflow-hidden border-b border-white/5 bg-[#181622]">
+              <img src="assets/images/projects/kofa-preview.png" alt="Kofa Luxury E-Commerce Fashion Platform" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#09080a] via-transparent to-black/30"></div>
+              
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#f95720] text-white shadow-lg">FLAGSHIP</span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/60 backdrop-blur-md text-white border border-white/10">Full Multi-Page</span>
+              </div>
+
+              <!-- Overlay buttons -->
+              <div class="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-opacity flex items-center justify-center gap-2.5 p-4 flex-wrap">
+                <button class="view-fullpage-btn px-3.5 py-2.5 rounded-xl bg-[#f95720] text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-[#ff6f3d] transition-colors shadow-lg" data-full-image="assets/images/projects/kofa-full.png" data-project-title="Kofa — Luxury E-Commerce Fashion Platform (GoFullPage Full View)">
+                  <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                  <span>Full Page Pic</span>
+                </button>
+                <button class="open-modal-btn px-3.5 py-2.5 rounded-xl bg-[#1c1a26] text-white border border-white/20 font-semibold text-xs flex items-center gap-1.5 hover:border-[#f95720] transition-colors" data-project="kofa">
+                  <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                  <span>Details</span>
+                </button>
+                <button class="live-demo-dummy-btn px-3.5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs flex items-center gap-1.5 hover:bg-gray-200 transition-colors" data-project-name="Kofa — Luxury E-Commerce Fashion Platform">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  <span>Demo</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20">E-Commerce</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/5 text-gray-300">Fashion Store</span>
+                </div>
+                <h3 class="text-xl font-bold text-white font-heading group-hover:text-[#f95720] transition-colors">Kofa — Luxury E-Commerce Fashion Platform</h3>
+                <p class="text-xs text-[#9a9aa6] leading-relaxed mt-1">
+                  Full multi-page clothing storefront with Collections, Product Details, Cart Drawer, Wishlist, Blogs, and currency formatter.
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                <div class="flex items-center gap-2 text-xs text-[#9a9aa6] font-mono">
+                  <span>HTML5</span> • <span>Tailwind</span> • <span>JavaScript</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button class="view-fullpage-btn text-xs font-semibold text-gray-400 hover:text-white flex items-center gap-1" data-full-image="assets/images/projects/kofa-full.png" data-project-title="Kofa — Luxury E-Commerce Fashion Platform">
+                    <i data-lucide="image" class="w-3.5 h-3.5 text-[#f95720]"></i>
+                    <span>Full Pic</span>
+                  </button>
+                  <button class="open-modal-btn text-xs font-semibold text-[#f95720] hover:underline flex items-center gap-1" data-project="kofa">
+                    <span>Case Study</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Project 2: Sunrise Shawarma Online Store -->
+        <div class="project-item group">
+          <div class="glass-card rounded-3xl overflow-hidden border border-white/10 flex flex-col h-full bg-[#121118]/80">
+            
+            <div class="relative w-full aspect-[16/10] overflow-hidden border-b border-white/5 bg-[#181622]">
+              <img src="assets/images/projects/sunrise_shawarma-preview.png" alt="Sunrise Shawarma Online Store" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#09080a] via-transparent to-black/30"></div>
+              
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500 text-black shadow-lg">FOOD STORE</span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/60 backdrop-blur-md text-white border border-white/10">Mouse Animation</span>
+              </div>
+
+              <div class="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-opacity flex items-center justify-center gap-2.5 p-4 flex-wrap">
+                <button class="view-fullpage-btn px-3.5 py-2.5 rounded-xl bg-[#f95720] text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-[#ff6f3d] transition-colors shadow-lg" data-full-image="assets/images/projects/sunrise_shawarma-full.png" data-project-title="Sunrise Shawarma Online Store (GoFullPage Full View)">
+                  <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                  <span>Full Page Pic</span>
+                </button>
+                <button class="open-modal-btn px-3.5 py-2.5 rounded-xl bg-[#1c1a26] text-white border border-white/20 font-semibold text-xs flex items-center gap-1.5 hover:border-[#f95720] transition-colors" data-project="sunrise">
+                  <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                  <span>Details</span>
+                </button>
+                <button class="live-demo-dummy-btn px-3.5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs flex items-center gap-1.5 hover:bg-gray-200 transition-colors" data-project-name="Sunrise Shawarma Online Store">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  <span>Demo</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">Food Ordering</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/5 text-gray-300">Karachi Brand</span>
+                </div>
+                <h3 class="text-xl font-bold text-white font-heading group-hover:text-[#f95720] transition-colors">Sunrise Shawarma — Online Food Ordering Store</h3>
+                <p class="text-xs text-[#9a9aa6] leading-relaxed mt-1">
+                  Food delivery platform for Sunrise Shawarma (Nishter Road, Karachi) with live appetizing menu, pickup selection, and mouse animation.
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                <div class="flex items-center gap-2 text-xs text-[#9a9aa6] font-mono">
+                  <span>HTML5</span> • <span>Canvas UI</span> • <span>WhatsApp API</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button class="view-fullpage-btn text-xs font-semibold text-gray-400 hover:text-white flex items-center gap-1" data-full-image="assets/images/projects/sunrise_shawarma-full.png" data-project-title="Sunrise Shawarma Online Store">
+                    <i data-lucide="image" class="w-3.5 h-3.5 text-[#f95720]"></i>
+                    <span>Full Pic</span>
+                  </button>
+                  <button class="open-modal-btn text-xs font-semibold text-[#f95720] hover:underline flex items-center gap-1" data-project="sunrise">
+                    <span>Case Study</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Project 3: Sunrise Fast Food Modern Restaurant Portal -->
+        <div class="project-item group">
+          <div class="glass-card rounded-3xl overflow-hidden border border-white/10 flex flex-col h-full bg-[#121118]/80">
+            
+            <div class="relative w-full aspect-[16/10] overflow-hidden border-b border-white/5 bg-[#181622]">
+              <img src="assets/images/projects/sunrise_fastfood-preview.png" alt="Sunrise Fast Food Restaurant Web Portal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#09080a] via-transparent to-black/30"></div>
+              
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-500 text-white shadow-lg">RESTAURANT</span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/60 backdrop-blur-md text-white border border-white/10">Full Dine-In UI</span>
+              </div>
+
+              <div class="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-opacity flex items-center justify-center gap-2.5 p-4 flex-wrap">
+                <button class="view-fullpage-btn px-3.5 py-2.5 rounded-xl bg-[#f95720] text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-[#ff6f3d] transition-colors shadow-lg" data-full-image="assets/images/projects/sunrise_fastfood-full.png" data-project-title="Sunrise Fast Food Restaurant Web Portal (GoFullPage Full View)">
+                  <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                  <span>Full Page Pic</span>
+                </button>
+                <button class="open-modal-btn px-3.5 py-2.5 rounded-xl bg-[#1c1a26] text-white border border-white/20 font-semibold text-xs flex items-center gap-1.5 hover:border-[#f95720] transition-colors" data-project="sunrise-fastfood">
+                  <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                  <span>Details</span>
+                </button>
+                <button class="live-demo-dummy-btn px-3.5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs flex items-center gap-1.5 hover:bg-gray-200 transition-colors" data-project-name="Sunrise Fast Food Restaurant Web Portal">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  <span>Demo</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">Restaurant Portal</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/5 text-gray-300">Dine-In & Fast Food</span>
+                </div>
+                <h3 class="text-xl font-bold text-white font-heading group-hover:text-[#f95720] transition-colors">Sunrise Fast Food — Modern Restaurant Web Portal</h3>
+                <p class="text-xs text-[#9a9aa6] leading-relaxed mt-1">
+                  Complete restaurant website with animated hero slider, categorized dishes menu (Burgers, Pizza, Shawarma), chef showcase, reservation system, and testimonials.
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                <div class="flex items-center gap-2 text-xs text-[#9a9aa6] font-mono">
+                  <span>Bootstrap 5</span> • <span>Swiper.js</span> • <span>Animate.css</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button class="view-fullpage-btn text-xs font-semibold text-gray-400 hover:text-white flex items-center gap-1" data-full-image="assets/images/projects/sunrise_fastfood-full.png" data-project-title="Sunrise Fast Food Restaurant Web Portal">
+                    <i data-lucide="image" class="w-3.5 h-3.5 text-[#f95720]"></i>
+                    <span>Full Pic</span>
+                  </button>
+                  <button class="open-modal-btn text-xs font-semibold text-[#f95720] hover:underline flex items-center gap-1" data-project="sunrise-fastfood">
+                    <span>Case Study</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Project 4: Pure CSS Grid Chessboard Architecture -->
+        <div class="project-item group">
+          <div class="glass-card rounded-3xl overflow-hidden border border-white/10 flex flex-col h-full bg-[#121118]/80">
+            
+            <div class="relative w-full aspect-[16/10] overflow-hidden border-b border-white/5 bg-[#0f172a]">
+              <img src="assets/images/projects/css_chessboard-preview.png" alt="Pure CSS Grid Chessboard Architecture" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#09080a] via-transparent to-black/30"></div>
+              
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500 text-black shadow-lg">CSS GRID</span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/60 backdrop-blur-md text-white border border-white/10">Architecture</span>
+              </div>
+
+              <div class="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-opacity flex items-center justify-center gap-2.5 p-4 flex-wrap">
+                <button class="view-fullpage-btn px-3.5 py-2.5 rounded-xl bg-[#f95720] text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-[#ff6f3d] transition-colors shadow-lg" data-full-image="assets/images/projects/css_chessboard-full.png" data-project-title="Pure CSS Grid Chessboard Architecture (GoFullPage Full View)">
+                  <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                  <span>Full Page Pic</span>
+                </button>
+                <button class="open-modal-btn px-3.5 py-2.5 rounded-xl bg-[#1c1a26] text-white border border-white/20 font-semibold text-xs flex items-center gap-1.5 hover:border-[#f95720] transition-colors" data-project="grid-chess">
+                  <i data-lucide="info" class="w-3.5 h-3.5"></i>
+                  <span>Details</span>
+                </button>
+                <button class="live-demo-dummy-btn px-3.5 py-2.5 rounded-xl bg-white text-black font-semibold text-xs flex items-center gap-1.5 hover:bg-gray-200 transition-colors" data-project-name="Pure CSS Grid Chessboard Architecture">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  <span>Demo</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">CSS Architecture</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/5 text-gray-300">Layout Mastery</span>
+                </div>
+                <h3 class="text-xl font-bold text-white font-heading group-hover:text-[#f95720] transition-colors">Pure CSS Grid Chessboard & Layout Architecture</h3>
+                <p class="text-xs text-[#9a9aa6] leading-relaxed mt-1">
+                  Precision 8x8 interactive chessboard crafted with pure CSS Grid `repeat(8, 60px)`, alternating class structures, and Unicode chess piece typography with zero dependencies.
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                <div class="flex items-center gap-2 text-xs text-[#9a9aa6] font-mono">
+                  <span>Pure CSS Grid</span> • <span>HTML5</span> • <span>Flexbox</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <button class="view-fullpage-btn text-xs font-semibold text-gray-400 hover:text-white flex items-center gap-1" data-full-image="assets/images/projects/css_chessboard-full.png" data-project-title="Pure CSS Grid Chessboard Architecture">
+                    <i data-lucide="image" class="w-3.5 h-3.5 text-[#f95720]"></i>
+                    <span>Full Pic</span>
+                  </button>
+                  <button class="open-modal-btn text-xs font-semibold text-[#f95720] hover:underline flex items-center gap-1" data-project="grid-chess">
+                    <span>Case Study</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- View All Projects CTA Banner -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#1c1a26] via-[#121118] to-[#1c1a26] border border-white/10 text-center space-y-4">
+        <h4 class="text-2xl font-bold text-white font-heading">Want to see all 6+ projects & case studies?</h4>
+        <p class="text-xs sm:text-sm text-[#9a9aa6] max-w-xl mx-auto">
+          Explore the dedicated projects catalog including full descriptions, features, and source details.
+        </p>
+        <a href="projects.html" class="inline-flex items-center gap-2 btn-primary px-7 py-3 rounded-xl font-bold text-xs uppercase tracking-wider">
+          <span>Go to Projects Catalog Page</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       8. SKILLS SECTION
+  ===================================================================== -->
+  <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 bg-[#0b0a0e] border-t border-white/5 relative">
+    <div class="max-w-6xl mx-auto space-y-16">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-[#f95720]">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>Technical Toolkit</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading pb-1">
+          Technologies I Work With Every Day
+        </h2>
+        <p class="text-[#9a9aa6] text-sm sm:text-base">
+          Proven skills and tools I leverage to build robust, bug-free, and scalable websites.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center font-bold text-sm">&lt;/&gt;</div>
+              <div>
+                <h4 class="font-bold text-white text-base font-heading">HTML5</h4>
+                <p class="text-xs text-[#9a9aa6]">Semantic & Accessible</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-[#f95720]">95%</span>
+          </div>
+          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#f95720] to-[#ed1a09] h-full rounded-full" style="width: 95%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">CSS</div>
+              <div>
+                <h4 class="font-bold text-white text-base font-heading">CSS3 & Tailwind</h4>
+                <p class="text-xs text-[#9a9aa6]">Flexbox, Grid, Animations</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-blue-400">92%</span>
+          </div>
+          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full" style="width: 92%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 flex items-center justify-center font-bold text-sm">JS</div>
+              <div>
+                <h4 class="font-bold text-white text-base font-heading">JavaScript (ES6+)</h4>
+                <p class="text-xs text-[#9a9aa6]">DOM, Async/Await, Events</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-yellow-400">85%</span>
+          </div>
+          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-yellow-500 to-amber-400 h-full rounded-full" style="width: 85%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">WP</div>
+              <div>
+                <h4 class="font-bold text-white text-base font-heading">WordPress & WC</h4>
+                <p class="text-xs text-[#9a9aa6]">Stores, Custom Templates</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-purple-400">88%</span>
+          </div>
+          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full" style="width: 88%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">API</div>
+              <div>
+                <h4 class="font-bold text-white text-base font-heading">REST APIs & Data</h4>
+                <p class="text-xs text-[#9a9aa6]">Fetch, CRUD, Endpoints</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-emerald-400">80%</span>
+          </div>
+          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-sm">100%</div>
+              <div>
+                <h4 class="font-bold text-white text-base font-heading">Bug-Free Testing</h4>
+                <p class="text-xs text-[#9a9aa6]">All Devices & Browsers</p>
+              </div>
+            </div>
+            <span class="text-xs font-mono font-bold text-pink-400">95%</span>
+          </div>
+          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#f95720] to-pink-500 h-full rounded-full" style="width: 95%"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       9. EDUCATION & MENTORSHIP SECTION (The Hunar Foundation & Sir Talha)
+  ===================================================================== -->
+  <section id="education" class="py-24 px-4 sm:px-6 lg:px-8 relative border-t border-white/5">
+    <div class="max-w-6xl mx-auto space-y-16">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-[#f95720]">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+          <span>Academic & Mentorship</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading pb-1">
+          Education & Industry Mentorship
+        </h2>
+        <p class="text-[#9a9aa6] text-sm sm:text-base">
+          Proudly trained at Pakistan's premier vocational institute under leading industry mentorship.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Institute Card: The Hunar Foundation (ARWE Trust) -->
+        <div class="lg:col-span-7 glass-card rounded-3xl p-8 border border-white/10 flex flex-col justify-between space-y-6 relative overflow-hidden bg-[#121118]/85">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#f95720] to-[#ed1a09] text-white flex items-center justify-center font-bold text-lg shadow-lg">
+                  TEH
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-white font-heading">The Hunar Foundation (TEH)</h3>
+                  <p class="text-xs text-[#f95720] font-mono">ARWE Trust • Karachi, Pakistan</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium">Verified Program</span>
+            </div>
+
+            <h4 class="text-base font-semibold text-white">Certification in Web Development & Modern Digital Technologies</h4>
+            <p class="text-xs sm:text-sm text-[#9a9aa6] leading-relaxed">
+              Trained through rigorous hands-on technical curriculum focused on building production-ready websites. Covered modern semantic HTML5, advanced CSS layout systems, responsive mobile-first architecture, JavaScript programming, DOM manipulation, asynchronous REST APIs, and WordPress CMS development.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#f95720]"></span>
+                <span class="text-gray-300">Modern Frontend</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                <span class="text-gray-300">WordPress CMS</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span class="text-gray-300">Clean Code & Git</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+            <span class="text-xs text-[#9a9aa6]">Official Institute Portal:</span>
+            <a href="https://teh.arwetrust.org/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#f95720] hover:underline flex items-center gap-1.5">
+              <span>teh.arwetrust.org</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mentor Spotlight Card: Sir Talha -->
+        <div class="lg:col-span-5 glass-card rounded-3xl p-8 border border-white/10 flex flex-col justify-between space-y-6 relative overflow-hidden bg-gradient-to-b from-[#181524]/90 to-[#100e18]/90">
+          <div class="space-y-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f95720]/10 border border-[#f95720]/20 text-[#f95720] text-xs font-semibold">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-[#f95720]"></i>
+              <span>Mentor Spotlight</span>
+            </div>
+
+            <div class="flex items-center gap-4 pt-1">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#f95720] to-purple-600 p-[2px] shadow-xl shrink-0">
+                <div class="w-full h-full rounded-2xl bg-[#09080a] flex items-center justify-center font-heading font-black text-white text-lg">
+                  ST
+                </div>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-white font-heading">Sir Talha</h4>
+                <p class="text-xs text-[#f95720] font-medium">Lead Web Development Instructor</p>
+                <p class="text-[11px] text-[#9a9aa6]">The Hunar Foundation (ARWE Trust)</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5 relative">
+              <span class="text-3xl font-serif text-[#f95720]/30 absolute top-2 left-3">“</span>
+              <p class="text-xs text-gray-300 italic pl-4 leading-relaxed">
+                Special gratitude to my mentor <strong class="text-white not-italic">Sir Talha</strong>, whose expert code reviews, practical industry problem-solving sessions, and continuous guidance helped me master modern web development standards and write clean, bug-free code.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-[#9a9aa6] font-mono">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+            <span>Trained under Direct Guidance</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       10. CLIENT REVIEWS
+  ===================================================================== -->
+  <!-- <section class="py-20 px-4 sm:px-6 lg:px-8 bg-[#0b0a0e] border-t border-white/5 relative">
+    <div class="max-w-6xl mx-auto space-y-12">
+      
+      <div class="text-center max-w-xl mx-auto space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-emerald-400">
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-emerald-400"></i>
+          <span>Client Feedback</span>
+        </div>
+        <h2 class="text-3xl font-extrabold text-white font-heading pb-1">
+          What People Say About My Work
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center gap-1 text-amber-400 text-xs">★★★★★</div>
+          <p class="text-xs text-gray-300 leading-relaxed">
+            "Saad built our online food store with custom mouse animations and mobile ordering. Everything runs seamlessly with zero bugs!"
+          </p>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+            <div class="w-8 h-8 rounded-full bg-[#f95720]/20 text-[#f95720] font-bold text-xs flex items-center justify-center">SS</div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Sunrise Shawarma</h5>
+              <p class="text-[10px] text-gray-400">Food Store Client</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center gap-1 text-amber-400 text-xs">★★★★★</div>
+          <p class="text-xs text-gray-300 leading-relaxed">
+            "His Kofa e-commerce setup is phenomenal. Very clean code, high speed, and beautiful attention to typography and layout."
+          </p>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+            <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xs flex items-center justify-center">AH</div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Ahmed Hassan</h5>
+              <p class="text-[10px] text-gray-400">Fashion Brand Owner</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-4 border border-white/10">
+          <div class="flex items-center gap-1 text-amber-400 text-xs">★★★★★</div>
+          <p class="text-xs text-gray-300 leading-relaxed">
+            "Communication was top notch. Saad solved frontend responsiveness issues and improved page loading time considerably. Great work ethic!"
+          </p>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+            <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xs flex items-center justify-center">ZR</div>
+            <div>
+              <h5 class="text-xs font-bold text-white">Zainab Rehman</h5>
+              <p class="text-[10px] text-gray-400">Product Manager</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section> -->
+
+  <!-- =====================================================================
+       11. CONTACT SECTION (Direct WhatsApp & Form - Number Hidden)
+  ===================================================================== -->
+  <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-6xl mx-auto space-y-12">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-5 space-y-8">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-pill text-xs font-medium text-[#f95720]">
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+              <span>Get In Touch</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading leading-tight pb-1">
+              Let's Build Something <br>
+              <span class="gradient-text-orange">Great Together.</span>
+            </h2>
+            <p class="text-[#9a9aa6] text-sm leading-relaxed">
+              Have an idea for a website, an e-commerce store, or need a frontend developer? Send me a message and let's get started right away.
+            </p>
+          </div>
+
+          <!-- Contact items (WhatsApp Number Hidden) -->
+          <div class="space-y-4">
+            
+            <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20want%20to%20discuss%20a%20project." target="_blank" class="glass-card rounded-2xl p-4 flex items-center gap-4 hover:border-emerald-500/40 transition-colors group">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="phone-call" class="w-6 h-6"></i>
+              </div>
+              <div class="flex-1">
+                <p class="text-[11px] font-mono text-[#9a9aa6] uppercase">Instant Response</p>
+                <p class="text-sm font-bold text-white">Chat on WhatsApp</p>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-emerald-400"></i>
+            </a>
+
+            <a href="mailto:saadraza132009@gmail.com" class="glass-card rounded-2xl p-4 flex items-center gap-4 hover:border-orange-500/40 transition-colors group">
+              <div class="w-12 h-12 rounded-xl bg-[#f95720]/20 text-[#f95720] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div class="flex-1">
+                <p class="text-[11px] font-mono text-[#9a9aa6] uppercase">Direct Email</p>
+                <p class="text-sm font-bold text-white">saadraza132009@gmail.com</p>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#f95720]"></i>
+            </a>
+
+            <div class="glass-card rounded-2xl p-4 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <p class="text-[11px] font-mono text-[#9a9aa6] uppercase">Location</p>
+                <p class="text-sm font-bold text-white">Karachi, Pakistan</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Social Links (User can paste links directly) -->
+          <div class="space-y-3">
+            <p class="text-xs font-mono text-[#9a9aa6] uppercase tracking-wider">Connect On Social Media:</p>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <!-- GitHub -->
+              <!-- <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn github" title="GitHub" aria-label="GitHub Profile">
+                <i data-lucide="github" class="w-4 h-4"></i>
+              </a> -->
+              <!-- LinkedIn -->
+              <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn linkedin" title="LinkedIn" aria-label="LinkedIn Profile">
+                <i data-lucide="linkedin" class="w-4 h-4"></i>
+              </a>
+              <!-- WhatsApp -->
+              <a href="https://wa.me/923437323469" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp" title="WhatsApp" aria-label="WhatsApp Direct">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+              </a>
+              <!-- Instagram -->
+              <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn instagram" title="Instagram" aria-label="Instagram Profile">
+                <i data-lucide="instagram" class="w-4 h-4"></i>
+              </a>
+              <!-- Facebook -->
+              <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn facebook" title="Facebook" aria-label="Facebook Profile">
+                <i data-lucide="facebook" class="w-4 h-4"></i>
+              </a>
+              <!-- Twitter / X -->
+              <!-- <a href="" target="_blank" rel="noopener noreferrer" class="social-icon-btn twitter" title="Twitter / X" aria-label="Twitter / X Profile">
+                <i data-lucide="twitter" class="w-4 h-4"></i>
+              </a> -->
+              <!-- Email -->
+              <a href="mailto:saadraza132009@gmail.com" class="social-icon-btn" title="Send Email" aria-label="Send Email">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Working Contact Form -->
+        <div class="lg:col-span-7">
+          <div class="glass-card rounded-3xl p-8 border border-white/10 relative">
+            <h3 class="text-xl font-bold text-white font-heading mb-2">Send a Direct Message</h3>
+            <p class="text-xs text-[#9a9aa6] mb-6">Fill in your requirements below and it will directly connect with me on WhatsApp for immediate response.</p>
+
+            <form id="contactForm" class="space-y-5">
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="space-y-1.5">
+                  <label for="formName" class="text-xs font-medium text-gray-300">Your Name *</label>
+                  <input type="text" id="formName" required placeholder="e.g. Ali Ahmed" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#f95720] transition-colors">
+                </div>
+
+                <div class="space-y-1.5">
+                  <label for="formEmail" class="text-xs font-medium text-gray-300">Email Address *</label>
+                  <input type="email" id="formEmail" required placeholder="name@company.com" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#f95720] transition-colors">
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label for="formService" class="text-xs font-medium text-gray-300">Service Required</label>
+                <select id="formService" class="w-full px-4 py-3 rounded-xl bg-[#0f0e15] border border-white/10 text-gray-200 text-sm focus:outline-none focus:border-[#f95720] transition-colors">
+                  <option value="Frontend Web Development">Frontend Web Development (HTML/CSS/JS)</option>
+                  <option value="WordPress & WooCommerce Store">WordPress & WooCommerce Store</option>
+                  <option value="API & Database Integration">API & Database Integration</option>
+                  <option value="Full Website Redesign & Bug Fixes">Full Website Redesign & Bug Fixes</option>
+                  <option value="Other Project Inquiry">Other Project Inquiry</option>
+                </select>
+              </div>
+
+              <div class="space-y-1.5">
+                <label for="formMessage" class="text-xs font-medium text-gray-300">Project Details *</label>
+                <textarea id="formMessage" rows="4" required placeholder="Tell me a bit about your website, timeline, and goals..." class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#f95720] transition-colors resize-none"></textarea>
+              </div>
+
+              <!-- Submit button (Number Hidden) -->
+              <button type="submit" class="w-full btn-primary py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 group">
+                <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                <span>Submit & Connect on WhatsApp</span>
+              </button>
+
+              <p class="text-[11px] text-gray-500 text-center font-mono">
+                🔒 Your information is completely private and sent securely.
+              </p>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       12. FOOTER (With Social Media Icons & Responsive Grid)
+  ===================================================================== -->
+  <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-[#060507]">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      
+      <div class="flex items-center gap-3">
+        <img src="assets/images/saad-portrait.png" alt="Saad Khan" class="w-9 h-9 rounded-full object-cover border border-[#f95720] shadow-md">
+        <div class="text-left">
+          <p class="font-bold text-white text-sm font-heading">Saad Khan</p>
+          <p class="text-[11px] text-[#9a9aa6]">Frontend & WordPress Developer • Karachi</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-5 sm:gap-6 text-xs text-[#9a9aa6]">
+        <a href="#hero" class="hover:text-white transition-colors">Home</a>
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#services" class="hover:text-white transition-colors">Services</a>
+        <a href="projects.html" class="hover:text-white transition-colors">Projects</a>
+        <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+        <a href="#education" class="hover:text-white transition-colors">Mentor</a>
+        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      </div>
+
+      <!-- Social Media Icons in Footer -->
+      <!-- <div class="flex flex-wrap items-center justify-center gap-2">
+        <a href="https://github.com/saadkhan-dev" target="_blank" rel="noopener noreferrer" class="social-icon-btn github w-9 h-9" title="GitHub" aria-label="GitHub Profile">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+        <a href="https://linkedin.com/in/saad-khan-dev" target="_blank" rel="noopener noreferrer" class="social-icon-btn linkedin w-9 h-9" title="LinkedIn" aria-label="LinkedIn Profile">
+          <i data-lucide="linkedin" class="w-4 h-4"></i>
+        </a>
+        <a href="https://wa.me/923437323469" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp w-9 h-9" title="WhatsApp" aria-label="WhatsApp Direct">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+        </a>
+        <a href="https://instagram.com/your-username" target="_blank" rel="noopener noreferrer" class="social-icon-btn instagram w-9 h-9" title="Instagram" aria-label="Instagram Profile">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+        </a>
+        <a href="https://facebook.com/your-username" target="_blank" rel="noopener noreferrer" class="social-icon-btn facebook w-9 h-9" title="Facebook" aria-label="Facebook Profile">
+          <i data-lucide="facebook" class="w-4 h-4"></i>
+        </a>
+        <a href="https://twitter.com/your-username" target="_blank" rel="noopener noreferrer" class="social-icon-btn twitter w-9 h-9" title="Twitter / X" aria-label="Twitter / X Profile">
+          <i data-lucide="twitter" class="w-4 h-4"></i>
+        </a>
+        <a href="mailto:saadraza132009@gmail.com" class="social-icon-btn w-9 h-9" title="Send Email" aria-label="Send Email">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+        </a>
+      </div> -->
+
+      <p class="text-xs text-gray-500 font-mono">
+        © 2026 Saad Khan.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       13. PROJECT MODAL
+  ===================================================================== -->
+  <div id="projectModal" class="fixed inset-0 z-[100] modal-backdrop hidden items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="glass-card rounded-3xl max-w-2xl w-full border border-white/15 p-6 sm:p-8 space-y-6 relative max-h-[90vh] overflow-y-auto bg-[#0f0e15] shadow-2xl">
+      
+      <button id="modalCloseBtn" type="button" aria-label="Close Project Modal" class="absolute top-5 right-5 p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-all z-30 cursor-pointer shadow-md">
+        <i data-lucide="x" class="w-5 h-5 pointer-events-none"></i>
+      </button>
+
+      <div>
+        <span id="modalCategory" class="text-xs font-mono font-semibold text-[#f95720] uppercase tracking-wider">Project Category</span>
+        <h3 id="modalTitle" class="text-2xl font-bold text-white font-heading mt-1">Project Title</h3>
+      </div>
+
+      <p id="modalDesc" class="text-sm text-gray-300 leading-relaxed">
+        Full project description goes here...
+      </p>
+
+      <div class="space-y-2">
+        <h5 class="text-xs font-mono uppercase text-[#9a9aa6]">Key Features Included:</h5>
+        <ul id="modalFeatures" class="space-y-2"></ul>
+      </div>
+
+      <div class="space-y-2">
+        <h5 class="text-xs font-mono uppercase text-[#9a9aa6]">Tech Stack:</h5>
+        <div id="modalTechStack" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="flex items-center justify-between gap-3 pt-4 border-t border-white/10 flex-wrap">
+        <div class="flex items-center gap-2">
+          <button id="modalFullPageBtn" type="button" class="text-xs font-semibold px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition-colors cursor-pointer">
+            <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-[#f95720] pointer-events-none"></i>
+            <span>View Full Page Pic</span>
+          </button>
+          <button type="button" class="close-modal-footer-btn text-xs font-semibold px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-gray-300 hover:text-white transition-colors cursor-pointer border border-white/10">
+            Close
+          </button>
+        </div>
+        <a href="https://wa.me/923437323469?text=Hi%20Saad,%20I%20am%20interested%20in%20a%20project%20like%20this%20one." target="_blank" rel="noopener noreferrer" class="btn-primary text-xs font-semibold px-5 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer">
+          <span>Inquire on WhatsApp</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 pointer-events-none"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       FULL PAGE SCREENSHOT LIGHTBOX (GoFullPage View)
+  ===================================================================== -->
+  <div id="fullPageModal" class="fixed inset-0 z-[100] modal-backdrop hidden items-center justify-center p-2 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+    <div class="glass-card rounded-2xl sm:rounded-3xl max-w-4xl w-full border border-white/20 p-4 sm:p-6 space-y-4 relative max-h-[94vh] flex flex-col bg-[#0b0a10]">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-white/10 shrink-0">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="w-8 h-8 rounded-xl bg-[#f95720]/20 text-[#f95720] flex items-center justify-center">
+            <i data-lucide="maximize-2" class="w-4 h-4 pointer-events-none"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-wider text-[#f95720] font-bold">GoFullPage Full-Height Capture</span>
+            <h4 id="fullPageModalTitle" class="text-sm sm:text-base font-bold text-white font-heading truncate max-w-md sm:max-w-xl">Project Full Screenshot</h4>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a id="fullPageOpenNewTab" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs text-white font-medium flex items-center gap-1.5 transition-colors cursor-pointer" title="Open full resolution in new tab">
+            <i data-lucide="external-link" class="w-3.5 h-3.5 pointer-events-none"></i>
+            <span class="hidden sm:inline">Open Original</span>
+          </a>
+          <button id="fullPageModalCloseBtn" type="button" aria-label="Close Screenshot Modal" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-colors cursor-pointer z-30">
+            <i data-lucide="x" class="w-5 h-5 pointer-events-none"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Full-Page Image Container -->
+      <div class="flex-1 overflow-y-auto overflow-x-hidden rounded-xl border border-white/10 bg-[#060608] p-2 sm:p-4 text-center">
+        <img id="fullPageModalImg" src="" alt="Full Page Screenshot" class="mx-auto rounded-lg shadow-2xl max-w-full h-auto block">
+      </div>
+
+      <div class="flex items-center justify-between text-[11px] text-[#9a9aa6] shrink-0 pt-2 border-t border-white/5">
+        <span>Scroll inside the viewer to explore the complete full page from top to footer.</span>
+        <button id="fullPageCloseTextBtn" type="button" class="text-xs text-[#f95720] hover:underline font-medium cursor-pointer py-1 px-2">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Back to Top Floating Button -->
+  <button id="backToTopBtn" aria-label="Back to Top" class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full glass-card border border-white/10 text-white flex items-center justify-center opacity-0 pointer-events-none translate-y-6 transition-all duration-300 shadow-xl hover:border-[#f95720] cursor-pointer">
+    <i data-lucide="chevron-up" class="w-5 h-5 pointer-events-none"></i>
+  </button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
